@@ -1,0 +1,17 @@
+
+
+.pagination{
+    margin: 5px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.round{
+    border-radius: 100%;
+}
+
+.pagination > div{
+    width: 50px;
+    margin: 2px 5px ;
+}

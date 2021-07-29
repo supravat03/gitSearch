@@ -1,0 +1,131 @@
+.showRepo{
+    padding-right: 10px;   
+    /* height: 480px; */
+    /* overflow-y: auto; */
+}
+.showData{
+    height: 490px;
+    overflow: auto;
+    
+}
+.order-card {
+    color: #fff;
+}
+
+.bg-c-blue {
+    background: linear-gradient(45deg,#4099ff,#73b4ff);
+}
+
+.bg-c-green {
+    background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+}
+
+.bg-c-yellow {
+    background: linear-gradient(45deg,#FFB64D,#ffcb80);
+}
+
+.bg-c-pink {
+    background: linear-gradient(45deg,#FF5370,#ff869a);
+}
+
+.repocard {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    border: none;
+    margin-bottom: 30px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.repocard .card-block {
+    padding: 25px;
+}
+
+.order-card i {
+    font-size: 26px;
+}
+
+.f-left {
+    float: left;
+}
+
+.f-right {
+    float: right;
+}
+
+.inlineBlock{
+    display: inline-block;
+}
+
+.fa{
+    margin-left: 3px ;
+    margin-right: 3px;
+}
+
+.space{
+    margin-left: 10px;
+}
+
+
+
+/* ***************************************** FOR FOLLOWERS AND FOLLOWING************************** */
+
+
+.social-link {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    color: #666;
+    border-radius: 50%;
+    transition: all 0.3s;
+    font-size: 1rem;
+}
+
+.social-link:hover, .social-link:focus {
+    background: #ddd;
+    text-decoration: none;
+    color: #555;
+}
+
+.mb-0{
+    overflow: hidden; 
+    margin-top: 0;   
+    margin-bottom: 3px;   
+}
+
+.textDecoration{
+    text-decoration: none;
+}
+
+.px-1{
+    padding-right: 0.25rem !important;
+  }
+.py-1{
+    padding-left: 0.25rem !important;
+  }
+
+
+  .img-fluid {
+    max-width: 75px;
+   
+  }
+  .rounded-circle {
+    border-radius: 50% !important;
+  }
+
+.bg-white {
+    background-color: #fff !important;
+  
+  }
+
+  .rounded {
+    border-radius: 0.25rem !important;
+  }
+
+
+  @media(max-width:992px){
+      .showRepo{
+          height: 100%;
+      }
+  }
