@@ -1,11 +1,7 @@
 // const fetch=require ('node-fetch');
 
 
-if ('addEventListener' in document) {
-	document.addEventListener('DOMContentLoaded', function() {
-		FastClick.attach(document.body);
-	}, false);
-}
+
 
 
 
@@ -248,7 +244,7 @@ const pageBtn = document.querySelectorAll(".pageBtn");
 
 btnPrev.addEventListener("click", (e) => {
     const preValue = e.target.value;
-    console.log(preValue);
+   
     if (preValue >= 1) {
         decreasePage();
     }
@@ -256,7 +252,6 @@ btnPrev.addEventListener("click", (e) => {
 
 btnNext.addEventListener("click", (e) => {
     const nextValue = parseInt(e.target.value);
-    console.log(e.target.value);
 
     if (repoEvent == true && nextValue <= totalRepoPage) {
         increasePage();
@@ -270,7 +265,6 @@ btnNext.addEventListener("click", (e) => {
 
 pageBtn.forEach((btn) => {
     btn.addEventListener("click", (e) => {
-        console.log(e.target.value);
         const value = e.target.value;
         if (repoEvent == true && value <= totalRepoPage) {
             pageCount = value;
