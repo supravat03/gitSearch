@@ -2,8 +2,18 @@ body{
     background:#DCDCDC;
     margin-top:20px;
     background: linear-gradient(to right, #22c1c3, #fdbb2d);
+   
   
 }
+canvas{
+  position: absolute;  
+  margin: 0;
+  padding: 0;
+}
+.navContainer, .content{
+  position: relative;
+}
+
 h3{
     margin-top: 10px !important;
     margin-bottom: 10px !important;
