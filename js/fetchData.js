@@ -8,15 +8,20 @@ async function fetchData(url) {
 }
 
 
-async function getRepoData(searchData,pageCount,showRepo,showDataDiv,pagination) {
+async function getRepoData(repoData,pageCount,showRepo,showDataDiv,pagination,searchData) {
+    if(searchData !=""){
     const repoUrl = "https://api.github.com/users/" + searchData + "/repos?page=" + pageCount;
-    let repoData = await fetchData(repoUrl);
+     repoData = await fetchData(repoUrl);
+    }
    showData(repoData,showRepo,showDataDiv,pagination);
 //    return repoData;
 }
 
-async function getFollow(url,showRepo,showDataDiv,pagination) {
-    let followData = await fetchData(url);
+async function getFollow(followData,showRepo,showDataDiv,pagination,url) {
+    if(url != ""){
+     followData = await fetchData(url);
+
+    }
 
     showFollow(followData,showRepo,showDataDiv,pagination);
 }

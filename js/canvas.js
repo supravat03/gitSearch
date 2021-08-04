@@ -2,26 +2,22 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
 canvas.width = document.body.scrollWidth;
-canvas.height = document.body.scrollHeight;
+canvas.height = Math.max( document.body.scrollHeight, innerHeight);
 
 let mouse = {
   x: document.body.scrollWidth / 2,
   y: document.body.scrollHeight / 2,
 };
 
-let colors = ["#2185C5", "#7ECEFD", "#FFF6E5", "#FF7F66"];
+let colorsArray = ["#2185C5", "#7ECEFD", "#FFF6E5", "#FF7F66"];
 
-let heightRate = 0.2;
-let decreaseRate = 0.98;
+const heightRate = 0.2;
+const decreaseRate = 0.98;
 
-addEventListener("mousemove", (e)=> {
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
-});
 
 addEventListener("resize",  ()=> {
   canvas.width = document.body.scrollWidth;
-  canvas.height = document.body.scrollHeight;
+  canvas.height = Math.max( document.body.scrollHeight, innerHeight);
   createBall();
 });
 
@@ -33,8 +29,8 @@ let randomNumber= (min, max)=> {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-let randomColor= (colors)=> {
-  return colors[Math.floor(Math.random() * colors.length)];
+let randomColor= (colorsArray)=> {
+  return colorsArray[Math.floor(Math.random() * colorsArray.length)];
 }
 
 function Ball(x, y, dx, dy, radius, color) {
@@ -83,7 +79,7 @@ let createBall=()=> {
     let y = randomNumber(0, canvas.height - radius);
     let dx = randomNumber(-3, 3);
     let dy = randomNumber(-2, 2);
-    ballArray.push(new Ball(x, y, dx, dy, radius, randomColor(colors)));
+    ballArray.push(new Ball(x, y, dx, dy, radius, randomColor(colorsArray)));
   }
 }
 

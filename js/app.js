@@ -1,4 +1,22 @@
 // const fetch=require ('node-fetch');
+
+if('ServiceWorker' in navigator){
+    window.addEventListener('load',()=>{
+        navigator.serviceWorker
+        .register('/sw.js')
+        .then((reg) => console.log("service worker registered ", reg))
+        .catch((err) => console.log("not registered",err))
+    });
+}
+
+
+
+if ('addEventListener' in document) {
+	document.addEventListener('DOMContentLoaded', function() {
+		FastClick.attach(document.body);
+	}, false);
+}
+
 console.log("app.js running");
 
 import {fetchData,getRepoData,getFollow} from './fetchData.js';
@@ -17,6 +35,10 @@ const url = "https://api.github.com/users/";
 let searchData = "";
 let followerURL = "";
 let followingURL = "";
+let repoData=[], followersData=[], followingData=[];
+
+
+
 const avatar = document.querySelector(".avatar");
 const userName = document.querySelector(".userName");
 const gitUrl = document.querySelector(".gitUrl");
@@ -50,6 +72,7 @@ searchBtn.addEventListener("click", () => {
 
 async function setData(url) {
     let data = await fetchData(url);
+
     showDataDiv.style.visibility = "hidden";
     pagination.style.visibility = "hidden";
     if (data["message"]) {
@@ -72,12 +95,29 @@ async function setData(url) {
     follower.innerText = data["followers"];
     following.innerText = data["following"];
 
+
+    const repoUrl = "https://api.github.com/users/" + searchData + "/repos?page=" + pageCount;
     followerURL = data["followers_url"] + "?per_page=32";
     followingURL = "https://api.github.com/users/" + data["login"] + "/following" + "?per_page=32";
     totalRepoPage = Math.ceil(data["public_repos"] / 30);
     totalFollowersPage = Math.ceil(data["followers"] / 30);
     totalFollowingPage = Math.ceil(data["following"] / 30);
     // console.log(totalPage)
+
+
+    //fetchAll calls to fetch following, followers and repo Data
+    Promise.all([
+        fetchData(repoUrl),
+        fetchData(followerURL),
+        fetchData(followingURL)
+    ])
+    .then((data)=>{
+        // console.log(data[0]);
+        repoData= data[0];
+        followersData= data[1];
+        followingData= data[2];
+    })
+    .catch(err=> console.error(err));
 }
 
 getRepos.addEventListener("click", () => {
@@ -87,7 +127,7 @@ getRepos.addEventListener("click", () => {
         followersEvent = false;
         followingEvent = false;
         resetDefaultBtn(btnPrev,btnNext,pageBtn);
-        getRepoData(searchData,pageCount,showRepo,showDataDiv,pagination);
+        getRepoData(repoData,pageCount,showRepo,showDataDiv,pagination,"");
       
     }
 });
@@ -98,7 +138,7 @@ getFollowers.addEventListener("click", () => {
         followersEvent = true;
         followingEvent = false;
         resetDefaultBtn(btnPrev,btnNext,pageBtn);
-        getFollow(followerURL,showRepo,showDataDiv,pagination);
+        getFollow(followersData,showRepo,showDataDiv,pagination,"");
     }
 });
 
@@ -108,7 +148,7 @@ getFollowing.addEventListener("click", () => {
         followersEvent = false;
         followingEvent = true;
         resetDefaultBtn(btnPrev,btnNext,pageBtn);
-        getFollow(followingURL,showRepo,showDataDiv,pagination);
+        getFollow(followingData,showRepo,showDataDiv,pagination,"");
     }
 });
 
@@ -146,13 +186,13 @@ pageBtn.forEach((btn) => {
         const value = e.target.value;
         if (repoEvent == true && value <= totalRepoPage) {
             pageCount = value;
-            getRepoData(searchData,pageCount,showRepo,showDataDiv,pagination);
+            getRepoData([],pageCount,showRepo,showDataDiv,pagination,searchData);
         } else if (followersEvent == true && value <= totalFollowersPage) {
             pageCount = value;
-            getFollow(`${followerURL}&page=${value}`,showRepo,showDataDiv,pagination);
+            getFollow([],showRepo,showDataDiv,pagination,`${followerURL}&page=${value}`);
         } else if (followingEvent == true && value <= totalFollowingPage) {
             pageCount = value;
-            getFollow(`${followingURL}&page=${value}`,showRepo,showDataDiv,pagination);
+            getFollow([],showRepo,showDataDiv,pagination,`${followingURL}&page=${value}`);
         }
     });
 });
