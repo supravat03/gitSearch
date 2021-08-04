@@ -1,10 +1,10 @@
 // const fetch=require ('node-fetch');
 
-if('ServiceWorker' in navigator){
+if('serviceWorker' in navigator){
     window.addEventListener('load',()=>{
         navigator.serviceWorker
         .register('/sw.js')
-        .then((reg) => console.log("service worker registered ", reg))
+        .then((reg) => console.log("service worker registered "))
         .catch((err) => console.log("not registered",err))
     });
 }
